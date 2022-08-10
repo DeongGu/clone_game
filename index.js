@@ -1,7 +1,22 @@
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 const btn = document.querySelector("button");
+const score = document.querySelector("#score");
+const rankBoard = document.querySelector(".rank_board");
 
+let scoreNumber = 0;
+
+const user = {
+  scoreNumber: 0,
+  userName: "",
+};
+
+for (let i = 0; i < window.localStorage.length; i++) {
+  const span = document.createElement("span");
+  const spanText = document.createTextNode(window.localStorage.key(i));
+  rankBoard.appendChild(span);
+  span.appendChild(spanText);
+}
 //막대기
 var bar = {
   x: 150,
@@ -165,7 +180,11 @@ function collisionDetection() {
   if (ball.y + ball.vy > canvas.height) {
     ball.vx = 0;
     ball.vy = 0;
-    const userName = prompt("이름?", "홍길동");
+    const name = prompt("이름?", "홍길동");
+    user.userName = name;
+    user.scoreNumber = scoreNumber;
+
+    window.localStorage.setItem(user.userName, user.scoreNumber);
     location.reload(true);
   }
 
@@ -180,13 +199,14 @@ function collisionDetection() {
           ball.y < b.y + brick.height
         ) {
           b.status = 0;
+          scoreNumber += 10;
+          score.innerHTML = scoreNumber;
           ball.vy = -ball.vy;
         }
       }
     }
   }
 }
-
 drawBall();
 drawBar();
 drawBricks();

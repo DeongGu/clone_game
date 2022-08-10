@@ -1,11 +1,9 @@
-require("dotenv").config();
-
 const express = require("express");
 const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 
 const app = express();
-mongoose.connect(process.env.DB_ADRESS);
+mongoose.connect("mongodb://localhost:27017/bricks-crash");
 
 const rankSchema = new Schema(
   {
@@ -25,14 +23,6 @@ const rankSchema = new Schema(
 
 const Rank = mongoose.model("Rank", rankSchema);
 
-const btn = document.querySelector("#test");
-
-btn.addEventListener("click", test);
-
-function test() {
-  Rank.create({ score: 70, name: "test2" });
-  console.log("보냈다");
-}
-Rank.create({ score: 50, name: "test1" });
+Rank.create({ score: scoreNumber, name: userName });
 
 app.listen(4000);
