@@ -25,6 +25,14 @@ const rankSchema = new Schema(
 
 const Rank = mongoose.model("Rank", rankSchema);
 
+const btn = document.querySelector("#test");
+
+btn.addEventListener("click", test);
+
+function test() {
+  Rank.create({ score: 70, name: "test2" });
+  console.log("보냈다");
+}
 Rank.create({ score: 50, name: "test1" });
 
 app.listen(4000);
