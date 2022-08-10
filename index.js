@@ -187,8 +187,6 @@ function collisionDetection() {
   }
 }
 
-function moveBall() {}
-
 drawBall();
 drawBar();
 drawBricks();
