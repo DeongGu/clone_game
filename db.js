@@ -25,6 +25,6 @@ const rankSchema = new Schema(
 
 const Rank = mongoose.model("Rank", rankSchema);
 
-await Rank.create({ score: 40, name: "test" });
+Rank.create({ score: 50, name: "test1" });
 
 app.listen(4000);
