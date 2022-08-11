@@ -2,7 +2,7 @@ const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 const btn = document.querySelector("button");
 const score = document.querySelector("#score");
-const rankBoard = document.querySelector(".rank_board");
+const rankBoard = document.querySelector(".rank_board_content");
 
 let scoreNumber = 0;
 
@@ -11,11 +11,24 @@ const user = {
   userName: "",
 };
 
+const rank = [];
+
 for (let i = 0; i < window.localStorage.length; i++) {
-  const span = document.createElement("span");
-  const spanText = document.createTextNode(window.localStorage.key(i));
-  rankBoard.appendChild(span);
-  span.appendChild(spanText);
+  rank.push([
+    window.localStorage.key(i),
+    Number(window.localStorage.getItem(window.localStorage.key(i))),
+  ]);
+}
+
+rank.sort((a, b) => {
+  return b[1] - a[1];
+});
+
+for (let i = 0; i < rank.length; i++) {
+  const li = document.createElement("li");
+  const liText = document.createTextNode(`${rank[i][0]} : ${rank[i][1]}`);
+  rankBoard.appendChild(li);
+  li.appendChild(liText);
 }
 //막대기
 var bar = {
@@ -107,19 +120,19 @@ function drawBar() {
 }
 
 var bricks = [];
-for (var i = 0; i < brick.columnCount; i++) {
+for (let i = 0; i < brick.columnCount; i++) {
   bricks[i] = [];
-  for (var j = 0; j < brick.rowCount; j++) {
+  for (let j = 0; j < brick.rowCount; j++) {
     bricks[i][j] = { x: 0, y: 0, status: 1 };
   }
 }
 
 function drawBricks() {
-  for (var i = 0; i < brick.columnCount; i++) {
-    for (var j = 0; j < brick.rowCount; j++) {
+  for (let i = 0; i < brick.columnCount; i++) {
+    for (let j = 0; j < brick.rowCount; j++) {
       if (bricks[i][j].status == 1) {
-        var brickX = i * (brick.width + brick.padding) + brick.offSetLeft;
-        var brickY = j * (brick.height + brick.padding) + brick.offSetTop;
+        let brickX = i * (brick.width + brick.padding) + brick.offSetLeft;
+        let brickY = j * (brick.height + brick.padding) + brick.offSetTop;
         bricks[i][j].x = brickX;
         bricks[i][j].y = brickY;
         ctx.beginPath();
@@ -188,9 +201,9 @@ function collisionDetection() {
     location.reload(true);
   }
 
-  for (var i = 0; i < brick.columnCount; i++) {
-    for (var j = 0; j < brick.rowCount; j++) {
-      var b = bricks[i][j];
+  for (let i = 0; i < brick.columnCount; i++) {
+    for (let j = 0; j < brick.rowCount; j++) {
+      let b = bricks[i][j];
       if (b.status === 1) {
         if (
           ball.x > b.x &&

@@ -1,5 +1,10 @@
 @charset "utf8";
 
+* {
+  padding: 0;
+  margin: 0;
+}
+
 .btn_start {
   display: block;
   margin: 30px auto;
@@ -24,27 +29,31 @@
   margin-left: 10px;
   border: 1px solid black;
 }
-
+.score_board span:first-child {
+  font-weight: bold;
+}
 .score_board span {
   margin: 0 auto;
   font-size: 25px;
 }
 
 .rank_board {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  width: 200px;
+  width: 300px;
   height: 287px;
   margin-left: 10px;
   margin-top: 10px;
   border: 1px solid black;
 }
-
-.rank_board span {
-  width: 200px;
+.rank_board_content li:first-child {
+  height: 50px;
+  line-height: 50px;
+  font-size: 22px;
+  font-weight: bold;
+}
+.rank_board_content li {
+  display: block;
   height: 30px;
-  padding-top: 10px;
+  line-height: 30px;
   text-align: center;
   border-bottom: 1px solid black;
 }
